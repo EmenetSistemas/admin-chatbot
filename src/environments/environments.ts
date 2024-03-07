@@ -1,0 +1,1 @@
+export const api = 'https://chatbot-back.galasoftsolutions.com/api';
