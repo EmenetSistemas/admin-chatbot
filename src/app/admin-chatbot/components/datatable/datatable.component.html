@@ -115,8 +115,15 @@
                                     </ng-container>
                                 </ng-template>
                                 <ng-template #icono>
-                                    <ng-container *ngIf="tableConfig[columna]?.icono; else deafult">
+                                    <ng-container *ngIf="tableConfig[columna]?.icono; else telefono">
                                         <i class="{{item[columna]}}"></i>
+                                    </ng-container>
+                                </ng-template>
+                                <ng-template #telefono>
+                                    <ng-container *ngIf="tableConfig[columna]?.telefono; else deafult">
+                                        <div class="link-modal" (click)="abrirOpcionesTelefono(item[columna])">
+                                            <span>{{ obtenerFormatoNumero(item[columna]) }}</span>
+                                        </div>
                                     </ng-container>
                                 </ng-template>
                                 <ng-template #deafult>

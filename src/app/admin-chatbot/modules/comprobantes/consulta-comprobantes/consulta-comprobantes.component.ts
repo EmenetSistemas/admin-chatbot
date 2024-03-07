@@ -22,6 +22,14 @@ export class ConsultaComprobantesComponent implements OnInit{
 	};
 
 	protected tableConfig : any = {
+		"id" : {
+			"detailColumn" : true,
+			"value" : "id",
+			"idModal" : "detalleComprobantePago"
+		},
+		"numeroContacto" : {
+			"telefono" : true
+		},
 		"fechaRegistro" : {
 			"dateRange" : true,
 			"center" : true
@@ -95,6 +103,10 @@ export class ConsultaComprobantesComponent implements OnInit{
 				this.mensajes.mensajeGenerico('error', 'error');
 			}
 		);
+	}
+
+	protected limpiarTabla () : void {
+		this.listaComprobantesStatus = [];
 	}
 
 	protected canGet() : boolean {

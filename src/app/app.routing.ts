@@ -3,7 +3,7 @@ import { HomeComponent } from "./admin-chatbot/home/home.component";
 
 export const AppRoutes: Routes = [
     {
-        path: 'dashboard',
+        path: 'chatbot',
         component: HomeComponent
     }
 ];

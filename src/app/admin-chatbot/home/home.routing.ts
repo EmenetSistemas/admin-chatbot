@@ -5,7 +5,7 @@ import { ConsultaComprobantesComponent } from "../modules/comprobantes/consulta-
 
 export const HomeRoutes: Routes = [
     {
-        path: 'dashboard',
+        path: 'chatbot',
         component: HomeComponent,
         children: [
             {

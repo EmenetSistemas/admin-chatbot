@@ -1,13 +1,15 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { api } from 'src/environments/environments';
 import { MensajesService } from '../../services/mensajes/mensajes.service';
+import FGenerico from 'src/app/shared/util/funciones-genericas';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-datatable',
 	templateUrl: './datatable.component.html',
 	styleUrls: ['./datatable.component.css']
 })
-export class DatatableComponent implements OnInit, OnChanges {
+export class DatatableComponent extends FGenerico implements OnInit, OnChanges {
 	@Input() columnasTabla: any = [];
 	@Input() datosTabla: any = [];
 	@Input() tableConfig: any = [];
@@ -32,7 +34,9 @@ export class DatatableComponent implements OnInit, OnChanges {
 	constructor(
 		private mensajes: MensajesService,
 		private cdRef: ChangeDetectorRef
-	) { }
+	) {
+		super();
+	}
 
 	ngOnInit(): void {
 		this.selectedCheckboxes = [];
@@ -50,7 +54,7 @@ export class DatatableComponent implements OnInit, OnChanges {
 		this.limpiarFiltros();
 	}
 
-	abrirModalModificacion(idDetalle: number, idModal: string) {
+	protected abrirModalModificacion(idDetalle: number, idModal: string) {
 		const dataModal = {
 			idDetalle: idDetalle
 		};
@@ -58,7 +62,7 @@ export class DatatableComponent implements OnInit, OnChanges {
 		}
 	}
 
-	abrirModalDetalle(idDetalle: number, idModal: string) {
+	protected abrirModalDetalle(idDetalle: number, idModal: string) {
 		const dataModal = {
 			idDetalle: idDetalle
 		};
@@ -66,10 +70,36 @@ export class DatatableComponent implements OnInit, OnChanges {
 		}
 	}
 
-	descargarPdf(idDetalle: number, rutaPdf: string) {
+	protected descargarPdf(idDetalle: number, rutaPdf: string) {
 		this.mensajes.mensajeEsperar();
 		window.open(this.url + '/' + rutaPdf + '/' + idDetalle);
 		this.mensajes.mensajeGenerico('Se generó el PDF con éxito', 'success');
+	}
+
+	protected abrirOpcionesTelefono(telefono: string): void {
+		Swal.fire({
+			allowOutsideClick: false,
+			title: "¿Que quieres hacer?",
+			showDenyButton: true,
+			showCancelButton: true,
+			confirmButtonText: "Llamar",
+			denyButtonText: 'Enviar WhatsApp',
+			cancelButtonText: 'Cerrar',
+			buttonsStyling: false,
+			customClass: {
+				confirmButton: 'order-1 btn btn-primary me-2',
+				denyButton: 'order-2 btn btn-success me-2',
+				cancelButton: 'order-3 btn btn-danger'
+			},
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = `tel:${telefono}`;
+			} else if (result.isDenied) {
+				const mensaje : string = `text=Hola ${this.obtenerSaludo()}, nos contactamos de su servicio de internet Emenet Comunicaciones`;
+				let mensajeTransform: string = mensaje.replace(/ /g, "+");
+				window.location.href = `https://api.whatsapp.com/send?l=pt_br&phone=${telefono}&${mensajeTransform}&lang=es`;
+			}
+		});
 	}
 
 	private getDateDb(dateString: string): Date | null {
