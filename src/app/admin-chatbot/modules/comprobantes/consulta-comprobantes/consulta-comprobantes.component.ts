@@ -1,22 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ComprobantesService } from 'src/app/admin-chatbot/services/comprobantes/comprobantes.service';
+import { MensajesService } from 'src/app/admin-chatbot/services/mensajes/mensajes.service';
 
 @Component({
 	selector: 'app-consulta-comprobantes',
 	templateUrl: './consulta-comprobantes.component.html',
 	styleUrls: ['./consulta-comprobantes.component.css']
 })
-export class ConsultaComprobantesComponent {
+export class ConsultaComprobantesComponent implements OnInit{
 	protected statusComprobantes: any[] = [];
 	protected statusSeleccionados: any[] = [];
 
 	protected columnasComprobantes : any = {
-		'pkTblComprobantesPagoClientes' : '#',
-		'nombreServicio' 				: 'Servicio',
-		'numeroContacto' 				: 'Contacto',
-		'observaciones' 				: 'Observaciones',
-		'fechaRegistro' 				: 'Registro',
-		'fechaEnvioComprobante' 		: 'Envio',
-		'fkCatStatusComprobantes' 		: 'Status'
+		'id' 					: '#',
+		'nombreServicio' 		: 'Servicio',
+		'numeroContacto' 		: 'Contacto',
+		'observaciones' 		: 'Observaciones',
+		'fechaRegistro' 		: 'Registro',
+		'fechaEnvioComprobante' : 'Envio',
+		'status' 				: 'Status'
 	};
 
 	protected tableConfig : any = {
@@ -28,12 +30,12 @@ export class ConsultaComprobantesComponent {
 			"dateRange" : true,
 			"center" : true
 		},
-		"fkCatStatusComprobantes" : {
+		"status" : {
 			"selectColumn" : true,
 			"selectOptions" : [
 				'Pendiente',
 				'Enviado',
-				'Entregado'
+				'Rechazado'
 			],
 			"dadges" : true,
 			"center" : true,
@@ -45,8 +47,8 @@ export class ConsultaComprobantesComponent {
 					"text" : "Enviado",
 					"color" : "primary"
 				}, {
-					"text" : "Entregado",
-					"color" : "success"
+					"text" : "Rechazado",
+					"color" : "danger"
 				}
 			]
 		}
@@ -55,13 +57,44 @@ export class ConsultaComprobantesComponent {
 	protected listaComprobantesStatus : any = [];
 
 	constructor (
-		
+		private mensajes : MensajesService,
+		private apiComprobantes : ComprobantesService
 	) {}
+
+	async ngOnInit(): Promise<void> {
+		this.mensajes.mensajeEsperar();
+		await this.obtenerStatusComprobantes();
+		this.mensajes.cerrarMensajes();
+	}
+
+	private obtenerStatusComprobantes () : Promise<void> {
+		return this.apiComprobantes.obtenerStatusComprobantes().toPromise().then(
+			respuesta => {
+				this.statusComprobantes = respuesta.data;
+			}, error => {
+				this.mensajes.mensajeGenerico('error', 'error');
+			}
+		);
+	}
 
 	protected cambioDeSeleccion(data: any): void {
 		if (data.from == 'statusPedidos') {
 			this.statusSeleccionados = data.selectedOptions;
 		}
+	}
+
+	protected obtenerComprobantesPagoPorStatus () : void {
+		this.mensajes.mensajeEsperar();
+		const arrStatus = this.statusSeleccionados.map(({value}) => value);
+
+		this.apiComprobantes.obtenerComprobantesPagoPorStatus(arrStatus).subscribe(
+			respuesta => {
+				this.listaComprobantesStatus = respuesta.data?.comprobantes ?? [];
+				this.mensajes.mensajeGenericoToast(respuesta.mensaje, respuesta.status ? 'warning' : 'success');
+			}, error => {
+				this.mensajes.mensajeGenerico('error', 'error');
+			}
+		);
 	}
 
 	protected canGet() : boolean {

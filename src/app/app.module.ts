@@ -12,6 +12,7 @@ import { ConsultaComprobantesComponent } from './admin-chatbot/modules/comproban
 import { DropdownComponent } from './admin-chatbot/components/dropdown/dropdown.component';
 import { DatatableComponent } from './admin-chatbot/components/datatable/datatable.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RouterModule.forRoot(AppRoutes),
     FormsModule,
-    HomeModule
+    HomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
