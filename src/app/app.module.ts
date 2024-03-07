@@ -7,12 +7,14 @@ import { RouterModule } from '@angular/router';
 import { AppRoutes } from './app.routing';
 import { HomeModule } from './admin-chatbot/home/home.module';
 import { NavbarComponent } from './admin-chatbot/components/navbar/navbar.component';
+import { SidenavComponent } from './admin-chatbot/components/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
