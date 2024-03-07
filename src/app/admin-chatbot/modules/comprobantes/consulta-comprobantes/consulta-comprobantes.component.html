@@ -1,0 +1,29 @@
+<div class="pagetitle">
+    <h1>Consulta de comprobantes</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Consulta de comprobantes</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-body row card-w-title">
+            <div class="form-group drop-space col-sm-6 col-12">
+                <label for="dropDown" class="form-label t-bold">Status Pedidos(s) <b style="color: brown;">*</b>:</label><br>
+                <div class="btn-group group-dropdown-form" role="group">
+                    <app-dropdown [options]="statusComprobantes" [font]="'statusPedidos'" (selectionChange)="cambioDeSeleccion($event)"></app-dropdown>
+                </div>
+            </div>
+
+            <div class="botonera">
+                <button class="btn btn-primary t-bold" [disabled]="canGet()">Consultar</button>
+                <button class="btn btn-success t-bold" [disabled]="canExport()">Excel</button>
+                <button class="btn btn-danger t-bold" [disabled]="canClean()">Limpiar</button>
+            </div>
+        </div>
+    </div>
+
+    <app-datatable [columnasTabla]="columnasComprobantes" [datosTabla]="listaComprobantesStatus" [tableConfig]="tableConfig"></app-datatable>
+</div>
