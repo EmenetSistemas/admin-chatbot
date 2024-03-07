@@ -5,14 +5,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './admin-chatbot/home/home.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutes } from './app.routing';
-import { InicioComponent } from './admin-chatbot/modules/inicio/inicio.component';
 import { HomeModule } from './admin-chatbot/home/home.module';
+import { NavbarComponent } from './admin-chatbot/components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    InicioComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
