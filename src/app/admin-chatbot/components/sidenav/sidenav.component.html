@@ -2,82 +2,18 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
             <a class="nav-link collapsed" [routerLink]="['inicio']">
-                <i class="ri-home-2-line"></i>
+                <i class="bi bi-grid"></i>
                 <span>Inicio</span>
             </a>
         </li>
 
         <li class="nav-heading">Administración</li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#productos" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-people"></i><span>Productos</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="productos" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li [routerLink]="['productos/pendientes']">
-                    <a>
-                        <i class="bi bi-circle"></i><span>Pendientes</span>
-                    </a>
-                </li>
-                <li [routerLink]="['productos/tienda']">
-                    <a>
-                        <i class="bi bi-circle"></i><span>En tienda</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#planesInternet" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-wifi"></i><span>Planes Internet</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link collapsed" [routerLink]="['inicio']">
+                <i class="bi bi-credit-card-2-front"></i>
+                <span>Comprobantes</span>
             </a>
-            <ul id="planesInternet" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a>
-                        <i class="bi bi-circle"></i><span>Registro</span>
-                    </a>
-                </li>
-                <li [routerLink]="['planesInternet']">
-                    <a>
-                        <i class="bi bi-circle"></i><span>Consultar</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li class="nav-heading">Gestión</li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" [routerLink]="['clientes']">
-                <i class="ri-home-2-line"></i>
-                <span>Clientes</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" [routerLink]="['pedidos']">
-                <i class="ri-home-2-line"></i>
-                <span>Pedidos</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#catalogos" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-people"></i><span>Catálogos</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="catalogos" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a>
-                        <i class="bi bi-circle"></i><span>Categorías Productos</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <i class="bi bi-circle"></i><span>Apartados Productos</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <i class="bi bi-circle"></i><span>Extras planes internet</span>
-                    </a>
-                </li>
-            </ul>
         </li>
     </ul>
 </aside>
