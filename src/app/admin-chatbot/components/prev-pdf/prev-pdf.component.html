@@ -1,0 +1,23 @@
+<div class="modal-body">
+    <div class="pagetitle">
+        <h1>Comprobante de pago ({{detalleComprobante.nombreServicio}})</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">Comprobante pago</li>
+            </ol>
+        </nav>
+    </div>
+
+    <ng-container *ngIf="detalleComprobante?.tipoArchivoComprobante.includes('pdf')">
+        <iframe [src]="getBase64PDFUrl(detalleComprobante.comprobantePago)" style="width:100%; height:690px;"
+            frameborder="0"></iframe>
+    </ng-container>
+    <ng-container *ngIf="detalleComprobante?.tipoArchivoComprobante.includes('document')">
+        <iframe src="data:{{detalleComprobante.tipoArchivoComprobante}};base64,{{detalleComprobante.comprobantePago}}"
+            type="application/msword" width="100%" height="690px"></iframe>
+    </ng-container>
+</div>
+
+<div class="modal-footer" style="text-align: center;">
+    <button type="button" class="btn btn-danger" (click)="cerrarModal()"><b>Cerrar</b></button>
+</div>

@@ -279,7 +279,7 @@ export class DatatableComponent extends FGenerico implements OnInit, OnChanges {
 		this.selectionChange.emit(data);
 	}
 
-	protected emitirIdAccion(action: string, idAccion: number): void {
+	protected emitirIdAccion(action: string, idAccion: any = null): void {
 		const data = {
 			action: action,
 			idAccion: idAccion

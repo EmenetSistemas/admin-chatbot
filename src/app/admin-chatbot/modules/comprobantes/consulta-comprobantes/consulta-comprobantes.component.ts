@@ -1,72 +1,77 @@
 import { Component, OnInit } from '@angular/core';
 import { ComprobantesService } from 'src/app/admin-chatbot/services/comprobantes/comprobantes.service';
 import { MensajesService } from 'src/app/admin-chatbot/services/mensajes/mensajes.service';
+import { ModalService } from 'src/app/admin-chatbot/services/modal/modal.service';
+import { PrevPdfComponent } from 'src/app/admin-chatbot/components/prev-pdf/prev-pdf.component';
 
 @Component({
 	selector: 'app-consulta-comprobantes',
 	templateUrl: './consulta-comprobantes.component.html',
 	styleUrls: ['./consulta-comprobantes.component.css']
 })
-export class ConsultaComprobantesComponent implements OnInit{
+export class ConsultaComprobantesComponent implements OnInit {
 	protected statusComprobantes: any[] = [];
 	protected statusSeleccionados: any[] = [];
 
-	protected columnasComprobantes : any = {
-		'id' 					: '#',
-		'nombreServicio' 		: 'Servicio',
-		'numeroContacto' 		: 'Contacto',
-		'fechaRegistro' 		: 'Registro',
-		'fechaEnvioComprobante' : 'Envio',
-		'status' 				: 'Status'
+	protected columnasComprobantes: any = {
+		'id': '#',
+		'nombreServicio': 'Servicio',
+		'numeroContacto': 'Contacto',
+		'fechaRegistro': 'Registro',
+		'fechaEnvioComprobante': 'Envio',
+		'status': 'Status'
 	};
 
-	protected tableConfig : any = {
-		"id" : {
-			"detailColumn" : true,
-			"value" : "id",
-			"idModal" : "detalleComprobantePago"
+	protected tableConfig: any = {
+		"id": {
+			"emitId": true,
+			"value": "id"
 		},
-		"numeroContacto" : {
-			"telefono" : true
+		"numeroContacto": {
+			"telefono": true
 		},
-		"fechaRegistro" : {
-			"dateRange" : true,
-			"center" : true
+		"fechaRegistro": {
+			"dateRange": true,
+			"center": true
 		},
-		"fechaEnvioComprobante" : {
-			"dateRange" : true,
-			"center" : true
+		"fechaEnvioComprobante": {
+			"dateRange": true,
+			"center": true
 		},
-		"status" : {
-			"selectColumn" : true,
-			"selectOptions" : [
+		"status": {
+			"selectColumn": true,
+			"selectOptions": [
 				'Pendiente',
 				'Enviado',
 				'Rechazado'
 			],
-			"dadges" : true,
-			"center" : true,
-			"dadgesCases" : [
+			"dadges": true,
+			"center": true,
+			"dadgesCases": [
 				{
-					"text" : "Pendiente",
-					"color" : "warning"
+					"text": "Pendiente",
+					"color": "warning"
 				}, {
-					"text" : "Enviado",
-					"color" : "primary"
+					"text": "Enviado",
+					"color": "primary"
 				}, {
-					"text" : "Rechazado",
-					"color" : "danger"
+					"text": "Rechazado",
+					"color": "danger"
 				}
 			]
 		}
 	}
 
-	protected listaComprobantesStatus : any = [];
+	protected listaComprobantesStatus: any = [];
 
-	constructor (
-		private mensajes : MensajesService,
-		private apiComprobantes : ComprobantesService
-	) {}
+	private idComprobante = 0;
+	protected detalleComprobante: any = null;
+
+	constructor(
+		private mensajes: MensajesService,
+		private apiComprobantes: ComprobantesService,
+		private modalService: ModalService
+	) { }
 
 	async ngOnInit(): Promise<void> {
 		this.mensajes.mensajeEsperar();
@@ -74,7 +79,7 @@ export class ConsultaComprobantesComponent implements OnInit{
 		this.mensajes.cerrarMensajes();
 	}
 
-	private obtenerStatusComprobantes () : Promise<void> {
+	private obtenerStatusComprobantes(): Promise<void> {
 		return this.apiComprobantes.obtenerStatusComprobantes().toPromise().then(
 			respuesta => {
 				this.statusComprobantes = respuesta.data;
@@ -90,9 +95,10 @@ export class ConsultaComprobantesComponent implements OnInit{
 		}
 	}
 
-	protected obtenerComprobantesPagoPorStatus () : void {
+	protected obtenerComprobantesPagoPorStatus(): void {
 		this.mensajes.mensajeEsperar();
-		const arrStatus = this.statusSeleccionados.map(({value}) => value);
+		this.depurarVariables();
+		const arrStatus = this.statusSeleccionados.map(({ value }) => value);
 
 		this.apiComprobantes.obtenerComprobantesPagoPorStatus(arrStatus).subscribe(
 			respuesta => {
@@ -104,19 +110,53 @@ export class ConsultaComprobantesComponent implements OnInit{
 		);
 	}
 
-	protected limpiarTabla () : void {
+	protected obtenerDetalleComprobante(data: any): void {
+		if (this.idComprobante == data.action) return;
+
+		this.mensajes.mensajeEsperar();
+
+		this.apiComprobantes.obtenerDetallComprobante(data.action).subscribe(
+			respuesta => {
+				this.detalleComprobante = respuesta.data.comprobante[0];
+				if (
+					this.detalleComprobante.tipoArchivoComprobante.includes('pdf') ||
+					this.detalleComprobante.tipoArchivoComprobante.includes('document')
+				) {
+					this.idComprobante = 0;
+					const dataModal = {
+						detalleComprobante: this.detalleComprobante
+					};
+					this.modalService.abrirModalConComponente(PrevPdfComponent, dataModal);
+				} else {
+					this.idComprobante = data.action;
+				}
+				this.mensajes.mensajeGenericoToast(respuesta.mensaje, 'success');
+			}, error => {
+				this.depurarVariables();
+				this.mensajes.mensajeGenerico('error', 'error');
+			}
+		);
+	}
+
+	private depurarVariables(): void {
+		this.idComprobante = 0;
+		this.detalleComprobante = null;
+	}
+
+	protected limpiarTabla(): void {
+		this.depurarVariables()
 		this.listaComprobantesStatus = [];
 	}
 
-	protected canGet() : boolean {
+	protected canGet(): boolean {
 		return !(this.statusSeleccionados.length > 0);
 	}
 
-	protected canExport() : boolean {
+	protected canExport(): boolean {
 		return !(this.listaComprobantesStatus.length > 0);
 	}
 
-	protected canClean() : boolean {
+	protected canClean(): boolean {
 		return !(this.listaComprobantesStatus.length > 0);
 	}
 }

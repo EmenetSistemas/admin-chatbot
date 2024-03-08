@@ -13,6 +13,8 @@ import { DropdownComponent } from './admin-chatbot/components/dropdown/dropdown.
 import { DatatableComponent } from './admin-chatbot/components/datatable/datatable.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PrevPdfComponent } from './admin-chatbot/components/prev-pdf/prev-pdf.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     SidenavComponent,
     ConsultaComprobantesComponent,
     DropdownComponent,
-    DatatableComponent
+    DatatableComponent,
+    PrevPdfComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot(AppRoutes),
     FormsModule,
     HomeModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

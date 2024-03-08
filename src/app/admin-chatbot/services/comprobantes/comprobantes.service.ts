@@ -14,8 +14,12 @@ export class ComprobantesService {
 	public obtenerStatusComprobantes(): Observable<any> {
 		return this.http.get<any>(`${api}/comprobantesPago/obtenerStatusComprobantes`);
 	}
-	
+
 	public obtenerComprobantesPagoPorStatus(status: any): Observable<any> {
 		return this.http.post<any>(`${api}/comprobantesPago/obtenerComprobantesPagoPorStatus`, status);
+	}
+
+	public obtenerDetallComprobante(id: any): Observable<any> {
+		return this.http.get<any>(`${api}/comprobantesPago/obtenerDetallComprobante/${id}`);
 	}
 }
