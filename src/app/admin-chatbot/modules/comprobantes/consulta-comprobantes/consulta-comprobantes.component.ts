@@ -119,10 +119,7 @@ export class ConsultaComprobantesComponent implements OnInit {
 		this.apiComprobantes.obtenerDetallComprobante(data.action).subscribe(
 			respuesta => {
 				this.detalleComprobante = respuesta.data.comprobante[0];
-				if (
-					this.detalleComprobante.tipoArchivoComprobante.includes('pdf') ||
-					this.detalleComprobante.tipoArchivoComprobante.includes('document')
-				) {
+				if (this.detalleComprobante.tipoArchivoComprobante.includes('pdf')) {
 					this.idComprobante = 0;
 					const dataModal = {
 						detalleComprobante: this.detalleComprobante
@@ -149,7 +146,6 @@ export class ConsultaComprobantesComponent implements OnInit {
 	}
 
 	hideImageFullScreen(event: MouseEvent): void {
-		// Si el clic proviene del overlay o del botón de cierre, oculta la imagen
 		if (event.target === document.getElementById('overlay') || event.target === document.getElementById('close-button')) {
 			const overlay: any = document.getElementById('overlay');
 			overlay.style.display = 'none';
