@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ComprobantesService } from 'src/app/admin-chatbot/services/comprobantes/comprobantes.service';
 import { MensajesService } from 'src/app/admin-chatbot/services/mensajes/mensajes.service';
 import { ModalService } from 'src/app/admin-chatbot/services/modal/modal.service';
@@ -70,7 +70,8 @@ export class ConsultaComprobantesComponent implements OnInit {
 	constructor(
 		private mensajes: MensajesService,
 		private apiComprobantes: ComprobantesService,
-		private modalService: ModalService
+		private modalService: ModalService,
+		private elementRef: ElementRef
 	) { }
 
 	async ngOnInit(): Promise<void> {
@@ -136,6 +137,27 @@ export class ConsultaComprobantesComponent implements OnInit {
 				this.mensajes.mensajeGenerico('error', 'error');
 			}
 		);
+	}
+
+	showImageFullScreen() {
+		const src = `data:${this.detalleComprobante.tipoArchivoComprobante};base64,${this.detalleComprobante.comprobantePago}`;
+		const overlay: any = document.getElementById('overlay');
+		const fullscreenImage: any = document.getElementById('fullscreen-image');
+
+		fullscreenImage.src = src;
+		overlay.style.display = 'block';
+	}
+
+	hideImageFullScreen(event: MouseEvent): void {
+		// Si el clic proviene del overlay o del botón de cierre, oculta la imagen
+		if (event.target === document.getElementById('overlay') || event.target === document.getElementById('close-button')) {
+			const overlay: any = document.getElementById('overlay');
+			overlay.style.display = 'none';
+		}
+	}
+
+	zoomImage() {
+		this.elementRef.nativeElement.querySelector('.fullscreen-image').classList.toggle('zoomed');
 	}
 
 	private depurarVariables(): void {
