@@ -15,7 +15,6 @@ export class ConsultaComprobantesComponent implements OnInit{
 		'id' 					: '#',
 		'nombreServicio' 		: 'Servicio',
 		'numeroContacto' 		: 'Contacto',
-		'observaciones' 		: 'Observaciones',
 		'fechaRegistro' 		: 'Registro',
 		'fechaEnvioComprobante' : 'Envio',
 		'status' 				: 'Status'
