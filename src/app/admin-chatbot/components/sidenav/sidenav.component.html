@@ -9,6 +9,13 @@
 
         <li class="nav-heading">Administración</li>
 
+        <li class="nav-item" [routerLink]="['chats']">
+            <a class="nav-link collapsed">
+                <i class="bi bi-whatsapp"></i>
+                <span>Chats en espera</span>
+            </a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link collapsed">
                 <i class="bi bi-person-lines-fill"></i>
@@ -18,8 +25,8 @@
 
         <li class="nav-heading">Gestión</li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" [routerLink]="['comprobantes']">
+        <li class="nav-item" [routerLink]="['comprobantes']">
+            <a class="nav-link collapsed">
                 <i class="bi bi-credit-card-2-front"></i>
                 <span>Comprobantes</span>
             </a>

@@ -24,7 +24,8 @@
                     <div class="botonera">
                         <button class="btn btn-primary t-bold" [disabled]="canGet()"
                             (click)="obtenerComprobantesPagoPorStatus()">Consultar</button>
-                        <button class="btn btn-success t-bold" [disabled]="canExport()" (click)="exportarExcel()">Excel</button>
+                        <button class="btn btn-success t-bold" [disabled]="canExport()"
+                            (click)="exportarExcel()">Excel</button>
                         <button class="btn btn-danger t-bold" [disabled]="canClean()"
                             (click)="limpiarTabla()">Limpiar</button>
                     </div>
@@ -32,8 +33,7 @@
             </div>
         </div>
 
-        <div class="col-12"
-            [ngClass]="{'col-lg-9': detalleComprobante?.tipoArchivoComprobante.includes('image') ?? false}">
+        <div [ngClass]="{'col-lg-9': detalleComprobante?.tipoArchivoComprobante.includes('image') ?? false}">
             <app-datatable [columnasTabla]="columnasComprobantes" [datosTabla]="listaComprobantesStatus"
                 [tableConfig]="tableConfig" (actionSelected)="obtenerDetalleComprobante($event)"></app-datatable>
         </div>
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </ng-container>
-        
+
         <div class="overlay" id="overlay" (click)="hideImageFullScreen($event)">
             <div class="fullscreen-image-container">
                 <img src="tu-imagen.jpg" class="fullscreen-image" id="fullscreen-image" (click)="zoomImage()">

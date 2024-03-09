@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PrevPdfComponent } from './admin-chatbot/components/prev-pdf/prev-pdf.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ChatsBotComponent } from './admin-chatbot/modules/chats-bot/chats-bot.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ConsultaComprobantesComponent,
     DropdownComponent,
     DatatableComponent,
-    PrevPdfComponent
+    PrevPdfComponent,
+    ChatsBotComponent
   ],
   imports: [
     BrowserModule,
