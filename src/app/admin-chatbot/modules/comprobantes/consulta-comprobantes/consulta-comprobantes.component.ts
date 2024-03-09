@@ -3,13 +3,15 @@ import { ComprobantesService } from 'src/app/admin-chatbot/services/comprobantes
 import { MensajesService } from 'src/app/admin-chatbot/services/mensajes/mensajes.service';
 import { ModalService } from 'src/app/admin-chatbot/services/modal/modal.service';
 import { PrevPdfComponent } from 'src/app/admin-chatbot/components/prev-pdf/prev-pdf.component';
+import FGenerico from 'src/app/shared/util/funciones-genericas';
+import { ExcelService } from 'src/app/shared/util/excel.service';
 
 @Component({
 	selector: 'app-consulta-comprobantes',
 	templateUrl: './consulta-comprobantes.component.html',
 	styleUrls: ['./consulta-comprobantes.component.css']
 })
-export class ConsultaComprobantesComponent implements OnInit {
+export class ConsultaComprobantesComponent extends FGenerico implements OnInit {
 	protected statusComprobantes: any[] = [];
 	protected statusSeleccionados: any[] = [];
 
@@ -95,8 +97,11 @@ export class ConsultaComprobantesComponent implements OnInit {
 		private mensajes: MensajesService,
 		private apiComprobantes: ComprobantesService,
 		private modalService: ModalService,
-		private elementRef: ElementRef
-	) { }
+		private elementRef: ElementRef,
+		private excelService: ExcelService
+	) {
+		super();
+	}
 
 	async ngOnInit(): Promise<void> {
 		this.mensajes.mensajeEsperar();
@@ -183,6 +188,25 @@ export class ConsultaComprobantesComponent implements OnInit {
 	private depurarVariables(): void {
 		this.idComprobante = 0;
 		this.detalleComprobante = null;
+	}
+
+	protected exportarExcel () : void {
+		this.mensajes.mensajeEsperar();
+
+		const nombreExcel = 'Lista de comprobantes: ' + this.getNowString();
+
+		this.excelService.exportarExcel(
+			this.listaComprobantesStatus,
+			{
+				'id'					: '#',
+				'nombreServicio'		: 'Servicio',
+				'numeroContacto'		: 'Contacto',
+				'fechaRegistro'			: 'Registro',
+				'fechaEnvioComprobante'	: 'Envio',
+				'status'				: 'Status',
+			},
+			nombreExcel
+		);
 	}
 
 	protected limpiarTabla(): void {
