@@ -14,12 +14,13 @@ export class ConsultaComprobantesComponent implements OnInit {
 	protected statusSeleccionados: any[] = [];
 
 	protected columnasComprobantes: any = {
-		'id': '#',
-		'nombreServicio': 'Servicio',
-		'numeroContacto': 'Contacto',
-		'fechaRegistro': 'Registro',
-		'fechaEnvioComprobante': 'Envio',
-		'status': 'Status'
+		'id'					: '#',
+		'nombreServicio'		: 'Servicio',
+		'numeroContacto'		: 'Contacto',
+		'fechaRegistro'			: 'Registro',
+		'fechaEnvioComprobante'	: 'Envio',
+		'status'				: 'Status',
+		'actions' 	  	  		: 'Acciones'
 	};
 
 	protected tableConfig: any = {
@@ -59,6 +60,29 @@ export class ConsultaComprobantesComponent implements OnInit {
 					"color": "danger"
 				}
 			]
+		},
+		"actions" : {
+			"noFilter" : true,
+			"actionFilter" : true,
+			"actions" : [
+				{
+					"nombre" : 'sendTicket',
+					"titulo" : 'Enviar comprobante',
+					"icon" : 'bi bi-whatsapp',
+					"bg" : 'primary'
+				}, {
+					"nombre" : 'declineTicket',
+					"titulo" : 'Rechazar comprobante',
+					"icon" : 'bi-exclamation-triangle',
+					"bg" : 'warning'
+				}, {
+					"nombre" : 'deleteTicket',
+					"titulo" : 'Eliminar comprobante',
+					"icon" : 'bi bi-trash',
+					"bg" : 'danger'
+				}
+			],
+			"value" : "pkCatApartado"
 		}
 	}
 

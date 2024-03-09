@@ -78,6 +78,10 @@ thead {
     text-align: center;
 }
 
+.primary {
+    background-color: rgb(179, 245, 181);
+}
+
 .warning {
     background-color: wheat;
 }
