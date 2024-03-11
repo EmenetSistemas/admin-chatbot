@@ -17,6 +17,7 @@ import { PrevPdfComponent } from './admin-chatbot/components/prev-pdf/prev-pdf.c
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SolicitudesInternetComponent } from './admin-chatbot/modules/chats-bot/solicitudes-internet/solicitudes-internet.component';
 import { EnEsperaComponent } from './admin-chatbot/modules/chats-bot/en-espera/en-espera.component';
+import { BlacklistComponent } from './admin-chatbot/modules/blacklist/blacklist.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EnEsperaComponent } from './admin-chatbot/modules/chats-bot/en-espera/e
     DatatableComponent,
     PrevPdfComponent,
     SolicitudesInternetComponent,
-    EnEsperaComponent
+    EnEsperaComponent,
+    BlacklistComponent
   ],
   imports: [
     BrowserModule,

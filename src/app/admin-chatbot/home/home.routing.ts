@@ -3,6 +3,7 @@ import { HomeComponent } from "./home.component";
 import { InicioComponent } from "../modules/inicio/inicio.component";
 import { ConsultaComprobantesComponent } from "../modules/comprobantes/consulta-comprobantes/consulta-comprobantes.component";
 import { EnEsperaComponent } from "../modules/chats-bot/en-espera/en-espera.component";
+import { BlacklistComponent } from "../modules/blacklist/blacklist.component";
 
 export const HomeRoutes: Routes = [
     {
@@ -18,6 +19,9 @@ export const HomeRoutes: Routes = [
             }, {
                 path: 'comprobantes',
                 component: ConsultaComprobantesComponent
+            }, {
+                path: 'blacklist',
+                component: BlacklistComponent
             }
         ]
     }

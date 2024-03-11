@@ -1,0 +1,33 @@
+<div class="pagetitle">
+    <h1>BlackList</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">BlackList</li>
+        </ol>
+    </nav>
+</div>
+
+<section class="section dashboard">
+    <div class="card">
+        <div class="card-body card-w-title">
+            <form class="row g-3" autocomplete="off" [formGroup]="formBlackList">
+                <div class="col-lg-10">
+                    <label for="contacto" class="form-label required">Contacto:</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><b>+</b>&nbsp; 52 1</span>
+                        <input type="text" class="form-control" formControlName="contacto" id="contacto"
+                            placeholder="Nombre" (keypress)="soloNumeros($event)" maxlength="15">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-12">
+                    <label class="form-label">&nbsp;</label>
+                    <button class="btn btn-primary form-control t-bold" (click)="registrarApartadoProducto()"><i
+                            class="bi bi-plus-circle"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <app-datatable [columnasTabla]="columnasBlackList" [tableConfig]="tableConfig"
+        [datosTabla]="listaBlackList" (actionSelected)="realizarAccion($event)"></app-datatable>
+</section>
