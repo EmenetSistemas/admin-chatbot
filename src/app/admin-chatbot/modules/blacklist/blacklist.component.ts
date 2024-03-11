@@ -72,9 +72,8 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 		);
 	}
 
-	protected registrarApartadoProducto(): void {
+	protected agregarChatBlackList(): void {
 		const telefono = this.formBlackList.value.contacto;
-		console.log(telefono);
 		const busqueda = this.listaBlackList.find(item => item.contacto.includes(telefono));
 		
 		if (busqueda) {
@@ -85,6 +84,7 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 		this.apiChats.agregarChatBlackList(telefono).toPromise().then(
 			respuesta => {
 				this.obtenerBlackList().then(() => {
+					this.limpiarForm();
 					this.mensajes.mensajeGenericoToast(respuesta.mensaje, 'success');
 				});
 			}, error => {
@@ -111,6 +111,6 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 	}
 
 	protected limpiarForm(): void {
-
+		this.formBlackList.reset();
 	}
 }
