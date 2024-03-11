@@ -15,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PrevPdfComponent } from './admin-chatbot/components/prev-pdf/prev-pdf.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ChatsBotComponent } from './admin-chatbot/modules/chats-bot/chats-bot.component';
+import { SolicitudesInternetComponent } from './admin-chatbot/modules/chats-bot/solicitudes-internet/solicitudes-internet.component';
+import { EnEsperaComponent } from './admin-chatbot/modules/chats-bot/en-espera/en-espera.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ChatsBotComponent } from './admin-chatbot/modules/chats-bot/chats-bot.c
     DropdownComponent,
     DatatableComponent,
     PrevPdfComponent,
-    ChatsBotComponent
+    SolicitudesInternetComponent,
+    EnEsperaComponent
   ],
   imports: [
     BrowserModule,

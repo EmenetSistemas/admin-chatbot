@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChatsBotComponent } from './chats-bot.component';
+import { EnEsperaComponent } from './en-espera.component';
 
-describe('ChatsBotComponent', () => {
-  let component: ChatsBotComponent;
-  let fixture: ComponentFixture<ChatsBotComponent>;
+describe('EnEsperaComponent', () => {
+  let component: EnEsperaComponent;
+  let fixture: ComponentFixture<EnEsperaComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ChatsBotComponent]
+      declarations: [EnEsperaComponent]
     });
-    fixture = TestBed.createComponent(ChatsBotComponent);
+    fixture = TestBed.createComponent(EnEsperaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
