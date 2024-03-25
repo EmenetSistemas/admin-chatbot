@@ -50,10 +50,10 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 		this.mensajes.mensajeEsperar();
 		this.crearFormBlackList();
 		await this.obtenerBlackList();
+		this.mensajes.cerrarMensajes();
 		setInterval(async () => {
 			await this.obtenerBlackList();
 		}, 5000);
-		this.mensajes.cerrarMensajes();
 	}
 
 	private crearFormBlackList(): void {
@@ -75,7 +75,7 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 	protected agregarChatBlackList(): void {
 		const telefono = this.formBlackList.value.contacto;
 		const busqueda = this.listaBlackList.find(item => item.contacto.includes(telefono));
-		
+
 		if (busqueda) {
 			this.mensajes.mensajeGenerico('Upss...! Al parecer este número ya se encuetra en la BlackList, intenta con uno diferente', 'warning');
 			return;
@@ -93,7 +93,7 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 		);
 	}
 
-	protected realizarAccion (data : any) : void {
+	protected realizarAccion(data: any): void {
 		this.mensajes.mensajeEsperar();
 		switch (data.action) {
 			case 'reactivateBot':
@@ -106,7 +106,7 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 						this.mensajes.mensajeGenerico('error', 'error');
 					}
 				);
-			break;
+				break;
 		}
 	}
 

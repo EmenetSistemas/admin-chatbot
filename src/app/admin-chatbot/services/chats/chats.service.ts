@@ -22,4 +22,8 @@ export class ChatsService {
 	public eliminarChatBlackList(telefono : string): Observable<any> {
 		return this.http.get<any>(`${api}/chats/eliminarChatBlackList/${telefono}`);
 	}
+
+	public obtenerSolicitudesInstalacion(): Observable<any> {
+		return this.http.get<any>(`${api}/chats/obtenerSolicitudesInstalacion`);
+	}
 }

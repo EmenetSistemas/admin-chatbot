@@ -1,1 +1,14 @@
-<p>solicitudes-internet works!</p>
+<div class="pagetitle">
+    <h1>Solicitudes de instalación</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Solicitudes de instalación</li>
+        </ol>
+    </nav>
+</div>
+
+<section class="section dashboard">
+    <div class="row">
+        <app-datatable [columnasTabla]="columnasSolicitudes" [datosTabla]="listaSolicitudesInstalacion" [tableConfig]="tableConfig"></app-datatable>
+    </div>
+</section>

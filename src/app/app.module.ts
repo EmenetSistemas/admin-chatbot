@@ -16,7 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { PrevPdfComponent } from './admin-chatbot/components/prev-pdf/prev-pdf.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SolicitudesInternetComponent } from './admin-chatbot/modules/chats-bot/solicitudes-internet/solicitudes-internet.component';
-import { EnEsperaComponent } from './admin-chatbot/modules/chats-bot/en-espera/en-espera.component';
 import { BlacklistComponent } from './admin-chatbot/modules/blacklist/blacklist.component';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { BlacklistComponent } from './admin-chatbot/modules/blacklist/blacklist.
     DatatableComponent,
     PrevPdfComponent,
     SolicitudesInternetComponent,
-    EnEsperaComponent,
     BlacklistComponent
   ],
   imports: [
