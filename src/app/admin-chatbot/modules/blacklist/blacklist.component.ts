@@ -74,6 +74,12 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 
 	protected agregarChatBlackList(): void {
 		const telefono = this.formBlackList.value.contacto;
+
+		if (!telefono) {
+			this.mensajes.mensajeGenerico('Aún hay campos vacíos o que no cumplen con la estructura correcta.', 'warning', 'Los campos requeridos están marcados con un *');
+			return;
+		}
+
 		const busqueda = this.listaBlackList.find(item => item.contacto.includes(telefono));
 
 		if (busqueda) {
