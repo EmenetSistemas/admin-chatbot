@@ -49,9 +49,14 @@ export class DatatableComponent extends FGenerico implements OnInit, OnChanges {
 
 	ngOnChanges(): void {
 		this.selectedCheckboxes = [];
+		Object.keys(this.columnasTabla).forEach((key) => {
+			if (this.tableConfig[key]?.selectColumn) {
+				const columnData = this.datosTabla.map((item : any) => item[key]);
+				this.tableConfig[key].selectOptions = Array.from(new Set(columnData));
+			}
+		});
 		this.emitirDatos();
 		this.onItemsPerPageChange();
-		this.limpiarFiltros();
 	}
 
 	protected abrirModalModificacion(idDetalle: number, idModal: string) {

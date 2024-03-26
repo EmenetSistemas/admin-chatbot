@@ -140,10 +140,20 @@
                                     </ng-container>
                                 </ng-template>
                                 <ng-template #emitId>
-                                    <ng-container *ngIf="tableConfig[columna]?.emitId; else deafult">
+                                    <ng-container *ngIf="tableConfig[columna]?.emitId; else location">
                                         <div class="link-modal" (click)="emitirIdAccion(item[columna])">
                                             <span>{{ item[columna] ?? 'Sin información'}}</span>
                                         </div>
+                                    </ng-container>
+                                </ng-template>
+                                <ng-template #location>
+                                    <ng-container *ngIf="tableConfig[columna]?.location; else deafult">
+                                        <img *ngIf="!item[columna]" src="https://m-net.mx/reportes/images/sinmaps.png" alt="" width="22px">
+                                        <a *ngIf="item[columna]" target="_blank" href="{{item[columna]}}">
+                                            <div style="width: 100%; height: 100%;">
+                                                <img src="https://m-net.mx/reportes/images/maps.png" alt="" width="22px">
+                                            </div>
+                                        </a>
                                     </ng-container>
                                 </ng-template>
                                 <ng-template #deafult>
