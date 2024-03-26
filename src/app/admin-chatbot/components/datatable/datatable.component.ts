@@ -95,9 +95,7 @@ export class DatatableComponent extends FGenerico implements OnInit, OnChanges {
 			if (result.isConfirmed) {
 				window.location.href = `tel:${telefono}`;
 			} else if (result.isDenied) {
-				const mensaje : string = `text=Hola ${this.obtenerSaludo()}, nos contactamos de su servicio de internet Emenet Comunicaciones`;
-				let mensajeTransform: string = mensaje.replace(/ /g, "+");
-				window.location.href = `https://api.whatsapp.com/send?l=pt_br&phone=${telefono}&${mensajeTransform}&lang=es`;
+				window.location.href = `whatsapp://send?phone=+${telefono}`;
 			}
 		});
 	}

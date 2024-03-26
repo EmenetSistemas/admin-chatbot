@@ -12,9 +12,7 @@ export class SolicitudesInternetComponent implements OnInit {
 		'nombre'				   : 'Nombre',
 		'telefono'				   : 'Teléfono',
 		'localidad'				   : 'Localidad',
-		'paquete'				   : 'Paquete',
-		'ubicacion'				   : 'Ubicación',
-		'caracteristicasDomicilio' : 'Caráteristicas'
+		'ubicacion'				   : 'Ubicación'
 	};
 
 	protected tableConfig: any = {
