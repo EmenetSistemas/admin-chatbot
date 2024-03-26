@@ -43,11 +43,6 @@ export class ConsultaComprobantesComponent extends FGenerico implements OnInit {
 		},
 		"status": {
 			"selectColumn": true,
-			"selectOptions": [
-				'Pendiente',
-				'Enviado',
-				'Rechazado'
-			],
 			"dadges": true,
 			"center": true,
 			"dadgesCases": [

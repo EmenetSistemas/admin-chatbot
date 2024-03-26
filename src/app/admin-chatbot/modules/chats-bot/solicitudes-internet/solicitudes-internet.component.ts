@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatsService } from 'src/app/admin-chatbot/services/chats/chats.service';
 import { MensajesService } from 'src/app/admin-chatbot/services/mensajes/mensajes.service';
 
@@ -7,21 +7,35 @@ import { MensajesService } from 'src/app/admin-chatbot/services/mensajes/mensaje
 	templateUrl: './solicitudes-internet.component.html',
 	styleUrls: ['./solicitudes-internet.component.css']
 })
-export class SolicitudesInternetComponent implements OnInit {
+export class SolicitudesInternetComponent implements OnInit, OnDestroy {
 	protected columnasSolicitudes: any = {
-		'nombre'				   : 'Nombre',
-		'telefono'				   : 'Teléfono',
-		'localidad'				   : 'Localidad',
-		'ubicacion'				   : 'Ubicación'
+		'nombre': 'Nombre',
+		'telefono': 'Teléfono',
+		'localidad': 'Localidad',
+		'ubicacion': 'Ubicación'
 	};
 
 	protected tableConfig: any = {
+		"nombre": {
+			"detailColumn": true
+		},
 		"telefono": {
 			"telefono": true
+		},
+		"localidad": {
+			"selectColumn": true,
+			"center": true
+		},
+		"ubicacion": {
+			"location": true,
+			"center": true,
+			"noFilter": true
 		}
 	};
 
 	protected listaSolicitudesInstalacion: any = [];
+
+	private intervalo: any;
 
 	constructor(
 		private mensajes: MensajesService,
@@ -32,10 +46,11 @@ export class SolicitudesInternetComponent implements OnInit {
 		this.mensajes.mensajeEsperar();
 		await this.obtenerSolicitudesInstalacion();
 		this.mensajes.cerrarMensajes();
-		setInterval(async () => {
+		this.intervalo = setInterval(async () => {
 			await this.obtenerSolicitudesInstalacion();
 		}, 5000);
 	}
+
 
 	private obtenerSolicitudesInstalacion(): Promise<any> {
 		return this.apiChats.obtenerSolicitudesInstalacion().toPromise().then(
@@ -45,5 +60,9 @@ export class SolicitudesInternetComponent implements OnInit {
 				this.mensajes.mensajeGenerico('error', 'error');
 			}
 		);
+	}
+
+	ngOnDestroy(): void {
+		clearInterval(this.intervalo);
 	}
 }

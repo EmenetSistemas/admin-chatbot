@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatsService } from '../../services/chats/chats.service';
 import { MensajesService } from '../../services/mensajes/mensajes.service';
 import FGenerico from 'src/app/shared/util/funciones-genericas';
@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 	templateUrl: './blacklist.component.html',
 	styleUrls: ['./blacklist.component.css']
 })
-export class BlacklistComponent extends FGenerico implements OnInit {
+export class BlacklistComponent extends FGenerico implements OnInit, OnDestroy {
 	protected formBlackList!: FormGroup;
 
 	protected columnasBlackList: any = {
@@ -38,6 +38,8 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 
 	protected listaBlackList: any[] = [];
 
+	private intervalo: any;
+
 	constructor(
 		private apiChats: ChatsService,
 		private mensajes: MensajesService,
@@ -51,7 +53,7 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 		this.crearFormBlackList();
 		await this.obtenerBlackList();
 		this.mensajes.cerrarMensajes();
-		setInterval(async () => {
+		this.intervalo = setInterval(async () => {
 			await this.obtenerBlackList();
 		}, 5000);
 	}
@@ -118,5 +120,9 @@ export class BlacklistComponent extends FGenerico implements OnInit {
 
 	protected limpiarForm(): void {
 		this.formBlackList.reset();
+	}
+
+	ngOnDestroy(): void {
+		clearInterval(this.intervalo);
 	}
 }
