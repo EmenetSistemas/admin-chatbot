@@ -35,17 +35,10 @@
                                     (change)="onItemsPerPageChange()" />
                             </ng-container>
                             <ng-template #selectColumn>
-                                <select *ngIf="tableConfig[columna]?.selectColumn; else defaultColumn"
-                                    class="form-select" [(ngModel)]="filterValues[columna]"
-                                    (input)="onItemsPerPageChange()">
-                                    <option value="">Todos</option>
-                                    <option *ngFor="let option of tableConfig[columna].selectOptions" [value]="option">
-                                        {{
-                                        option }}</option>
-                                    <option *ngIf="tableConfig[columna]?.showEmptyOption" value="null">Sin información
-                                    </option>
-                                </select>
-                            </ng-template>
+                                <div *ngIf="tableConfig[columna]?.selectColumn; else defaultColumn" class="btn-group group-dropdown-form" role="group" style="width: 100% !important;">
+                                    <app-dropdown [options]="tableConfig[columna].selectOptions ?? []" [font]="columna" (selectionChange)="actualizarFiltro($event)"></app-dropdown>
+                                </div>
+                            </ng-template>                            
                             <ng-template #defaultColumn>
                                 <input *ngIf="!tableConfig[columna]?.noFilter && !tableConfig[columna]?.selectColumn"
                                     type="search" class="form-control" [placeholder]="columnasTabla[columna]"

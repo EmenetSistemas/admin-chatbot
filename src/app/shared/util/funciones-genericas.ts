@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import * as moment from 'moment';
 
@@ -56,5 +55,9 @@ export default class FGenerico {
         } else {
             return 'buenas noches';
         }
+    }
+
+    public formatString (str : string) : string {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^\w\s]/gi, '').replace(/ñ/g, 'n');
     }
 }

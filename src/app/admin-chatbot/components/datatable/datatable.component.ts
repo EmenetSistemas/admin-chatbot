@@ -51,8 +51,12 @@ export class DatatableComponent extends FGenerico implements OnInit, OnChanges {
 		this.selectedCheckboxes = [];
 		Object.keys(this.columnasTabla).forEach((key) => {
 			if (this.tableConfig[key]?.selectColumn) {
-				const columnData = this.datosTabla.map((item : any) => item[key]);
-				this.tableConfig[key].selectOptions = Array.from(new Set(columnData));
+				const columnData = this.datosTabla.map((item: any) => item[key]);
+				this.tableConfig[key].selectOptions = Array.from(new Set(columnData)).map((value: any) => ({
+					value: value,
+					label: value,
+					checked: false
+				}));
 			}
 		});
 		this.emitirDatos();
@@ -133,7 +137,7 @@ export class DatatableComponent extends FGenerico implements OnInit, OnChanges {
 
 		const datosMostrar = this.datosTabla.filter((registro: any) => {
 			return Object.keys(this.filterValues).every((column: any) => {
-				const filter = this.filterValues[column].toLowerCase();
+				const filter : any = this.filterValues[column];
 				const value = registro[column.replace('_inicio', '').replace('_fin', '')];
 
 				if (column.endsWith('_inicio') || column.endsWith('_fin')) {
@@ -149,12 +153,14 @@ export class DatatableComponent extends FGenerico implements OnInit, OnChanges {
 					return true;
 				}
 
-				if (filter === '') {
+				if (filter === '' || filter.length == 0) {
 					return true;
-				} else if (filter === 'null' && this.tableConfig[column]?.showEmptyOption) {
+				} else if (this.tableConfig[column]?.showEmptyOption && filter.toLowerCase() === 'null') {
 					return value === undefined || value === null || value === '';
+				} else if (this.tableConfig[column]?.selectColumn) {
+					return filter.includes(value);
 				} else {
-					return value?.toString().toLowerCase().includes(filter);
+					return this.formatString(value ?? '').includes(this.formatString(filter ?? ''));
 				}
 			});
 		});
@@ -273,6 +279,10 @@ export class DatatableComponent extends FGenerico implements OnInit, OnChanges {
 			return color.color;
 		}
 		return 'default';
+	}
+
+	protected actualizarFiltro(data : any): void {
+		this.filterValues[data.from] = data.selectedOptions.map((objeto : any) => objeto.value);;
 	}
 
 	protected emitirDatos(): void {
