@@ -23,6 +23,13 @@ export class DropdownComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(): void {
+		this.options.forEach(option => {
+			const existingOption = this.filteredOptions.find(item => item.value === option.value);
+			if (existingOption) {
+				option.checked = existingOption.checked;
+			}
+		});
+		this.filteredOptions = [...this.options];
 		this.updateSelectedCount();
 	}
 
@@ -42,7 +49,6 @@ export class DropdownComponent implements OnInit, OnChanges {
 
 	optionChanged(option: any) {
 		option.checked = !option.checked;
-		this.filteredOptions = [...this.options];
 		this.updateSelectedCount();
 	}
 
@@ -55,15 +61,6 @@ export class DropdownComponent implements OnInit, OnChanges {
 			this.filteredOptions = this.options.filter(option => option.label.toLowerCase().includes(searchText.toLowerCase()));
 		}
 		this.updateSelectedCount();
-	}
-
-	alternativeFilter() {
-		const searchText = this.searchText;
-		if (searchText === '') {
-			this.filteredOptions = [...this.options];
-		} else {
-			this.filteredOptions = this.options.filter(option => option.label.toLowerCase().includes(searchText.toLowerCase()));
-		}
 	}
 
 	allOptionsSelected(): boolean {
@@ -85,6 +82,5 @@ export class DropdownComponent implements OnInit, OnChanges {
 			from: this.font
 		};
 		this.selectionChange.emit(data);
-		this.alternativeFilter();
 	}
 }
